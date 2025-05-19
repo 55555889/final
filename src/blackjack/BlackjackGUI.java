@@ -22,6 +22,7 @@ public class BlackjackGUI extends JFrame {
         setTitle("Blackjack 21 點遊戲"); //介面標題
         setSize(800, 600); //介面大小
         setDefaultCloseOperation(EXIT_ON_CLOSE); //當介面右上角的「關閉（X）」被按下時關閉介面並結束應用程式
+        setContentPane(new BackgroundPanel("/background/desk_back.jpg")); //設置背景圖
         setLayout(new BorderLayout()); //將介面區分為五個區塊(上北,下南,左西,右東,中間)的版面配置方式
         
         JPanel dealerContainer = new JPanel(new BorderLayout()); //設置莊家區域
@@ -29,12 +30,17 @@ public class BlackjackGUI extends JFrame {
         dealerContainer.add(dealerScoreLabel, BorderLayout.NORTH); //把莊家的分數區域放在莊家區域的上(北)方
         dealerContainer.add(dealerPanel, BorderLayout.CENTER); //把莊家的卡片區域放在莊家區域的中間
         add(dealerContainer, BorderLayout.NORTH); //把莊家區域放在介面的上(北)方
+        dealerPanel.setOpaque(false); //將區域設為透明，避免擋到背景
+        dealerContainer.setOpaque(false);
 
         JPanel playerContainer = new JPanel(new BorderLayout()); //設置玩家區域
         playerContainer.setBorder(BorderFactory.createTitledBorder("You")); //在玩家區域加上一個寫著You的邊框
         playerContainer.add(playerScoreLabel, BorderLayout.NORTH); //把玩家的分數區域放在介面的上(北)方
         playerContainer.add(playerPanel, BorderLayout.CENTER); //把玩家的卡片區域放在介面的中間
         add(playerContainer, BorderLayout.CENTER); //把玩家區域放在介面的中間
+        playerPanel.setOpaque(false); //將區域設為透明，避免擋到背景
+        playerContainer.setOpaque(false);
+
 
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
         JButton newGameButton = new JButton("New Game"); //建立一個按鈕，標示為 "New Game"
@@ -48,6 +54,8 @@ public class BlackjackGUI extends JFrame {
         bottomPanel.add(controlPanel, BorderLayout.CENTER); //把控制面板的區域放在底部區域的中間
         bottomPanel.add(statusLabel, BorderLayout.SOUTH); //把當前遊戲狀態的提示訊息區域放在底部區域的下(南)方
         add(bottomPanel, BorderLayout.SOUTH); //把底部區域放在介面的下(南)方
+        controlPanel.setOpaque(false); //將區域設為透明，避免擋到背景
+        bottomPanel.setOpaque(false);
         
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER); //讓文字在水平方向置中
         statusLabel.setFont(new Font("Arial", Font.BOLD, 16)); //設定字型為Arial,字體樣式為粗體,字體大小為16pt
@@ -111,7 +119,22 @@ public class BlackjackGUI extends JFrame {
         revalidate(); //更新位置與大小等佈局資訊（處理排版）
         repaint(); //強制重繪畫面（處理外觀）
     }
+    
+    class BackgroundPanel extends JPanel {
+        private final Image backgroundImage;
 
+        public BackgroundPanel(String imagePath) {
+            backgroundImage = new ImageIcon(getClass().getResource(imagePath)).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            // 繪製整個面板區域的背景圖（會自動拉伸）
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+    
     private void addCardsToPanel(JPanel panel, List<Card> hand, boolean revealAll) { 
     	//用於將卡牌圖像加入到畫面上的目標卡片區域，參數分別為要加牌的目標卡片區域、要加的牌、是否要顯示牌的正面(如果是莊家未亮牌，會顯示背面)
     	
