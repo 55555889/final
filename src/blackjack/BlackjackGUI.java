@@ -83,7 +83,24 @@ public class BlackjackGUI extends JFrame {
                 : "Total: ?"
         );
         
-        statusLabel.setText(gameManager.getStatusMessage()); //更新當前遊戲狀態的提示訊息
+        //更新當前遊戲狀態的提示訊息
+        String message = gameManager.getStatusMessage();
+        statusLabel.setText(message);
+
+        //根據訊息自動變色
+        if (message.contains("You win")) {
+            statusLabel.setForeground(new Color(0, 128, 0)); //當訊息中有"You win"時，文字顏色變為綠色
+        } else if (message.contains("Dealer wins")) { //當訊息中有"Dealer wins"時，文字顏色變為紅色
+            statusLabel.setForeground(Color.RED);
+        } else if (message.contains("Push")) { //當訊息中有"Push"時，文字顏色變為紅色
+            statusLabel.setForeground(Color.GRAY);
+        } else {
+            statusLabel.setForeground(Color.BLACK); //預設顏色為黑色
+        }
+        
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER); //讓文字在水平方向置中
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 16)); //設定字型為Arial,字體樣式為粗體,字體大小為16pt
+        
         scoreLabel.setText("Wins: " + gameManager.getWins() + "  Losses: " + gameManager.getLosses()); //更新勝負次數
         
         //根據遊戲狀態啟用或停用按鈕
