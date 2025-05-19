@@ -4,7 +4,7 @@ public class Card {
     private final String suit; //撲克牌花色
     private final String rank; //撲克牌數字
 
-    public Card(String suit, String rank) { //建立撲克牌
+    public Card(String suit, String rank) { //建立撲克牌堆
         this.suit = suit;
         this.rank = rank;
     }
