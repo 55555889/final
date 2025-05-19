@@ -49,6 +49,9 @@ public class BlackjackGUI extends JFrame {
         bottomPanel.add(statusLabel, BorderLayout.SOUTH); //把當前遊戲狀態的提示訊息區域放在底部區域的下(南)方
         add(bottomPanel, BorderLayout.SOUTH); //把底部區域放在介面的下(南)方
         
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER); //讓文字在水平方向置中
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 16)); //設定字型為Arial,字體樣式為粗體,字體大小為16pt
+        
         hitButton.addActionListener(e -> { //當"Hit"按鈕被按下時
             gameManager.playerHits(); //執行GameManager.java裡的playerHits()
             updateUI(); //刷新介面
@@ -97,9 +100,6 @@ public class BlackjackGUI extends JFrame {
         } else {
             statusLabel.setForeground(Color.BLACK); //預設顏色為黑色
         }
-        
-        statusLabel.setHorizontalAlignment(SwingConstants.CENTER); //讓文字在水平方向置中
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 16)); //設定字型為Arial,字體樣式為粗體,字體大小為16pt
         
         scoreLabel.setText("Wins: " + gameManager.getWins() + "  Losses: " + gameManager.getLosses()); //更新勝負次數
         
