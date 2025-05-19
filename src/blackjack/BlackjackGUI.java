@@ -14,6 +14,9 @@ public class BlackjackGUI extends JFrame {
     private final JLabel scoreLabel = new JLabel("Wins: 0  Losses: 0"); //目前累積的勝負次數
     private final JLabel playerScoreLabel = new JLabel(); //玩家的當前手牌總點數
     private final JLabel dealerScoreLabel = new JLabel(); //莊家的當前手牌總點數
+    
+    private final JButton hitButton = new JButton("Hit"); //建立一個按鈕，標示為 "Hit"
+    private final JButton standButton = new JButton("Stand"); //建立一個按鈕，標示為 "Stand"
 
     public BlackjackGUI() { //建立並設定介面
         setTitle("Blackjack 21 點遊戲"); //介面標題
@@ -21,27 +24,19 @@ public class BlackjackGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE); //當介面右上角的「關閉（X）」被按下時關閉介面並結束應用程式
         setLayout(new BorderLayout()); //將介面區分為五個區塊(上北,下南,左西,右東,中間)的版面配置方式
         
-        JPanel dealerContainer = new JPanel(new BorderLayout()); //設置莊家
-        dealerContainer.setBorder(BorderFactory.createTitledBorder("Dealer"));
-        dealerContainer.add(dealerScoreLabel, BorderLayout.NORTH);
-        dealerContainer.add(dealerPanel, BorderLayout.CENTER);
-        add(dealerContainer, BorderLayout.NORTH);
+        JPanel dealerContainer = new JPanel(new BorderLayout()); //設置莊家區域
+        dealerContainer.setBorder(BorderFactory.createTitledBorder("Dealer")); //在莊家區域加上一個寫著Dealer的邊框 
+        dealerContainer.add(dealerScoreLabel, BorderLayout.NORTH); //把莊家的分數區域放在莊家區域的上(北)方
+        dealerContainer.add(dealerPanel, BorderLayout.CENTER); //把莊家的卡片區域放在莊家區域的中間
+        add(dealerContainer, BorderLayout.NORTH); //把莊家區域放在介面的上(北)方
 
-        JPanel playerContainer = new JPanel(new BorderLayout());
-        playerContainer.setBorder(BorderFactory.createTitledBorder("You"));
-        playerContainer.add(playerScoreLabel, BorderLayout.NORTH);
-        playerContainer.add(playerPanel, BorderLayout.CENTER);
-        add(playerContainer, BorderLayout.CENTER);
-        
-        //在莊家的卡片區域加上一個寫著Dealer的邊框 
-        //把莊家的卡片區域放在介面的上(北)方
-
-        //在玩家的卡片區域加上一個寫著You的邊框 
-        //把玩家的卡片區域放在介面的中間方
+        JPanel playerContainer = new JPanel(new BorderLayout()); //設置玩家區域
+        playerContainer.setBorder(BorderFactory.createTitledBorder("You")); //在玩家區域加上一個寫著You的邊框
+        playerContainer.add(playerScoreLabel, BorderLayout.NORTH); //把玩家的分數區域放在介面的上(北)方
+        playerContainer.add(playerPanel, BorderLayout.CENTER); //把玩家的卡片區域放在介面的中間
+        add(playerContainer, BorderLayout.CENTER); //把玩家區域放在介面的中間
 
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
-        JButton hitButton = new JButton("Hit"); //建立一個按鈕，標示為 "Hit"
-        JButton standButton = new JButton("Stand"); //建立一個按鈕，標示為 "Stand"
         JButton newGameButton = new JButton("New Game"); //建立一個按鈕，標示為 "New Game"
 
         controlPanel.add(hitButton); //把各個按鈕和勝負次數放進控制面板的區域
@@ -88,7 +83,12 @@ public class BlackjackGUI extends JFrame {
         
         statusLabel.setText(gameManager.getStatusMessage()); //更新當前遊戲狀態的提示訊息
         scoreLabel.setText("Wins: " + gameManager.getWins() + "  Losses: " + gameManager.getLosses()); //更新勝負次數
-
+        
+        //根據遊戲狀態啟用或停用按鈕
+        boolean gameOngoing = !gameManager.isDealerRevealed(); //藉由莊家是否亮牌來判斷遊戲是否還在進行中
+        hitButton.setEnabled(gameOngoing); //如果gameOngoing = true，則按鈕可以點擊，如果gameOngoing = false，則按鈕會變成灰色，不可點擊
+        standButton.setEnabled(gameOngoing);
+        
         revalidate(); //更新位置與大小等佈局資訊（處理排版）
         repaint(); //強制重繪畫面（處理外觀）
     }
