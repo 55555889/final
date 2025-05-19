@@ -10,7 +10,7 @@ public class BlackjackGUI extends JFrame {
 
     private final JPanel playerPanel = new JPanel(); //玩家的卡片區域
     private final JPanel dealerPanel = new JPanel(); //莊家的卡片區域
-    private final JLabel statusLabel = new JLabel("Welcome to Blackjack!"); //當前遊戲狀態的提示訊息區域(不知道為什麼沒顯示)
+    private final JLabel statusLabel = new JLabel("Welcome to Blackjack!"); //當前遊戲狀態的提示訊息區域
     private final JLabel scoreLabel = new JLabel("Wins: 0  Losses: 0"); //目前累積的勝負次數
     private final JLabel playerScoreLabel = new JLabel(); //玩家的當前手牌總點數
     private final JLabel dealerScoreLabel = new JLabel(); //莊家的當前手牌總點數
@@ -43,10 +43,12 @@ public class BlackjackGUI extends JFrame {
         controlPanel.add(standButton);
         controlPanel.add(newGameButton);
         controlPanel.add(scoreLabel);
-
-        add(statusLabel, BorderLayout.SOUTH); //把當前遊戲狀態的提示訊息區域放在介面的下(南)方(不知道為什麼沒顯示)
-        add(controlPanel, BorderLayout.PAGE_END); //把控制面板的區域放在介面的下方
-
+        
+        JPanel bottomPanel = new JPanel(new BorderLayout()); //設置底部區域
+        bottomPanel.add(controlPanel, BorderLayout.CENTER); //把控制面板的區域放在底部區域的中間
+        bottomPanel.add(statusLabel, BorderLayout.SOUTH); //把當前遊戲狀態的提示訊息區域放在底部區域的下(南)方
+        add(bottomPanel, BorderLayout.SOUTH); //把底部區域放在介面的下(南)方
+        
         hitButton.addActionListener(e -> { //當"Hit"按鈕被按下時
             gameManager.playerHits(); //執行GameManager.java裡的playerHits()
             updateUI(); //刷新介面
