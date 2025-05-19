@@ -57,6 +57,8 @@ public class GameManager {
     }
     
     //把GameManager裡的重要狀態資訊提供給GUI顯示或其他類別讀取
+    public int getPlayerHandTotal() {return player.getTotal();} //傳回玩家的手牌總點數
+    public int getDealerHandTotal() {return dealer.getTotal();} //傳回莊家的手牌總點數
     public List<Card> getPlayerHand() { return player.getHand(); } //傳回玩家的手牌
     public List<Card> getDealerHand() { return dealer.getHand(); } //傳回莊家的手牌
     public boolean isDealerRevealed() { return dealerRevealed; } //傳回莊家的牌是否「亮牌」
