@@ -38,6 +38,7 @@ public class BlackjackGUI extends JFrame {
         dealerContainer.setOpaque(false);
         
         dealerScoreLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
+        dealerScoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
 
         JPanel playerContainer = new JPanel(new BorderLayout()); //設置玩家區域
         javax.swing.border.TitledBorder playerBorder = BorderFactory.createTitledBorder("You"); //建立一個寫著You的標題邊框
@@ -51,6 +52,7 @@ public class BlackjackGUI extends JFrame {
         playerContainer.setOpaque(false);
         
         playerScoreLabel.setForeground(Color.WHITE); //把玩家的分數區域文字顏色變成白色
+        playerScoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
         
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
         JButton newGameButton = new JButton("New Game"); //建立一個按鈕，標示為 "New Game"
@@ -65,6 +67,7 @@ public class BlackjackGUI extends JFrame {
         newGameButton.setFocusPainted(false);
         
         scoreLabel.setForeground(Color.WHITE);  //把勝負次數文字顏色變成白色
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
         
         JPanel bottomPanel = new JPanel(new BorderLayout()); //設置底部區域
         bottomPanel.add(controlPanel, BorderLayout.CENTER); //把控制面板的區域放在底部區域的中間
@@ -74,7 +77,8 @@ public class BlackjackGUI extends JFrame {
         bottomPanel.setOpaque(false);
         
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER); //讓文字在水平方向置中
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 16)); //設定字型為Arial,字體樣式為粗體,字體大小為16pt
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 48)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        
         
         hitButton.addActionListener(e -> { //當"Hit"按鈕被按下時
             gameManager.playerHits(); //執行GameManager.java裡的playerHits()

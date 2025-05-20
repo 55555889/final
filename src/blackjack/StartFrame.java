@@ -18,7 +18,9 @@ public class StartFrame extends JFrame {
         JButton startButton = new JButton("Start"); //建立一個按鈕，標示為"Start"
         startButton.setFont(new Font("Arial", Font.BOLD, 24)); //設定按鈕文字字型
         startButton.setFocusPainted(false); //取消按鈕在被點選或取得鍵盤焦點時周圍的預設虛線框，讓按鈕看起來更乾淨
-
+        
+        
+        
         startButton.addActionListener(e -> { //當"Start"按鈕被點擊時觸發
             BlackjackGUI game = new BlackjackGUI(); //建立新的BlackjackGUI遊戲視窗物件。
             game.setVisible(true); //顯示遊戲視窗
@@ -27,10 +29,11 @@ public class StartFrame extends JFrame {
 
         setLayout(new BorderLayout()); //將介面區分為五個區塊(上北,下南,左西,右東,中間)的版面配置方式
         
-        JPanel startPanel = new JPanel(); //建立起始按鈕的區域
-        startPanel.add(startButton, BorderLayout.CENTER); //把起始按鈕放在起始按鈕的區域的中間
-        add(startPanel, BorderLayout.SOUTH); //把起始按鈕的區域放在介面的下(南)方
+        JPanel startPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));//建立起始按鈕的區域，版面配置為FlowLayout，且對齊方式是置中。
         startPanel.setOpaque(false); //將區域設為透明，避免擋到背景
+        startPanel.add(startButton); //把起始按鈕放在起始按鈕的區域中
+
+        add(startPanel, BorderLayout.SOUTH); //把起始按鈕的區域放在介面的下(南)方
     }
     
     class BackgroundPanel extends JPanel {
