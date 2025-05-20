@@ -59,17 +59,17 @@ public class GameManager {
         }
     }
     
-    public boolean isGameOver() {
+    public boolean isGameOver() { //偵測任意一方是否籌碼歸零
         return playerChips == 0 || dealerChips == 0;
     }
     
-    public String getGameOverMessage() {
+    public String getGameOverMessage() { //玩家和莊家的勝利訊息
         if (playerChips == 0) return "Game Over! Dealer wins all chips!";
         if (dealerChips == 0) return "Congratulations! You win all dealer chips!";
         return "";
     }
     
-    public void resetChips() {
+    public void resetChips() { //重置雙方籌碼
         playerChips = 6;
         dealerChips = 6;
     }
