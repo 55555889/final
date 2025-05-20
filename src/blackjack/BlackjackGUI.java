@@ -94,9 +94,16 @@ public class BlackjackGUI extends JFrame {
     private void updateUI() { //刷新介面功能的詳細步驟
         dealerPanel.removeAll(); //清空莊家的卡片區域
         playerPanel.removeAll(); //清空玩家的卡片區域
+        
+     
+        boolean showOnlyOneCard = !gameManager.isDealerRevealed();
 
-        addCardsToPanel(dealerPanel, gameManager.getDealerHand(), gameManager.isDealerRevealed()); //把當前莊家持有的卡牌圖加到莊家的卡片區域中(莊家需確認是否已開牌) 
-        addCardsToPanel(playerPanel, gameManager.getPlayerHand(), true); //把當前玩家持有的卡牌圖加到玩家的卡片區域中(玩家默認開牌)
+        addCardsToPanel(dealerPanel, gameManager.getDealerHand(), !showOnlyOneCard);
+
+        addCardsToPanel(playerPanel, gameManager.getPlayerHand(), true);
+        
+        //把當前莊家持有的卡牌圖加到莊家的卡片區域中(莊家需確認是否已開牌) 
+        //把當前玩家持有的卡牌圖加到玩家的卡片區域中(玩家默認開牌)
         
         playerScoreLabel.setText("Total: " + gameManager.getPlayerHandTotal()); //更新玩家目前手牌的總點數
         dealerScoreLabel.setText(
@@ -148,10 +155,21 @@ public class BlackjackGUI extends JFrame {
     
     private void addCardsToPanel(JPanel panel, List<Card> hand, boolean revealAll) { 
     	//用於將卡牌圖像加入到畫面上的目標卡片區域，參數分別為要加牌的目標卡片區域、要加的牌、是否要顯示牌的正面(如果是莊家未亮牌，會顯示背面)
+    	panel.removeAll();
     	
         for (int i = 0; i < hand.size(); i++) { //用for迴圈遍歷整副手牌
             Card card = hand.get(i); //取出第i張手牌
-            String path = revealAll ? card.getImagePath() : "/cards/back.png"; //判斷要顯示牌的正面或背面圖
+            String path;
+            if (revealAll) {
+                path = card.getImagePath();
+            } else {
+                // 只讓第二張牌亮牌，其他牌背面
+                if (i == 1) {
+                    path = card.getImagePath();
+                } else {
+                    path = "/cards/back.png";
+                }
+            }
             
             URL imgURL = getClass().getResource(path); //從資源資料夾中載入圖片URL
             if (imgURL == null) { //如果找不到圖片，就跳過這張牌，並在錯誤輸出提示
