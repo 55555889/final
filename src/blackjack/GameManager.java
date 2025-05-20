@@ -6,7 +6,9 @@ public class GameManager {
     private Deck deck = new Deck(); //調用Deck.java，建立牌堆
     private Player player = new Player(); //調用Player.java，建立玩家和莊家
     private Player dealer = new Player();
-
+    
+    private int playerChips = 6; //紀錄玩家籌碼
+    private int dealerChips = 6; //紀錄莊家籌碼
     private int wins = 0; //紀錄玩家目前的勝場與敗場
     private int losses = 0; 
     private boolean dealerRevealed = false;//紀錄莊家的牌是否已經翻開（亮牌）
@@ -33,6 +35,8 @@ public class GameManager {
             dealerRevealed = true;
             statusMessage = "You bust! Dealer wins.";
             losses++;
+            playerChips--;
+            dealerChips++;
         }
     }
 
@@ -46,17 +50,33 @@ public class GameManager {
         int dealerTotal = dealer.getTotal();
 
         if (dealerTotal > 21 || playerTotal > dealerTotal) { //若莊家爆牌，或玩家點數較高，則玩家獲勝
-            wins++;
+        	wins++;
             statusMessage = "You win!";
+            playerChips++;
+            dealerChips--;
         } else if (dealerTotal == playerTotal) { //若雙方點數相同，則平手
             statusMessage = "Push (tie)";
         } else { //其他情況(莊家點數較高且沒爆牌)，則莊家勝利
-            losses++;
+        	losses++;
             statusMessage = "Dealer wins.";
+            playerChips--;
+            dealerChips++;
         }
     }
     
+    public boolean isGameOver() {
+        return playerChips == 0 || dealerChips == 0;
+    }
+    
+    public String getGameOverMessage() {
+        if (playerChips == 0) return "Game Over! Dealer wins all chips!";
+        if (dealerChips == 0) return "Congratulations! You win all dealer chips!";
+        return "";
+    }
+    
     //把GameManager裡的重要狀態資訊提供給GUI顯示或其他類別讀取
+    public int getPlayerChips() { return playerChips; } //傳回玩家的籌碼數
+    public int getDealerChips() { return dealerChips; } //傳回莊家的籌碼數
     public int getPlayerHandTotal() {return player.getTotal();} //傳回玩家的手牌總點數
     public int getDealerHandTotal() {return dealer.getTotal();} //傳回莊家的手牌總點數
     public List<Card> getPlayerHand() { return player.getHand(); } //傳回玩家的手牌

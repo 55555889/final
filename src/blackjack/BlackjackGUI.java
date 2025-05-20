@@ -14,6 +14,8 @@ public class BlackjackGUI extends JFrame {
     private final JLabel scoreLabel = new JLabel("Wins: 0  Losses: 0"); //目前累積的勝負次數
     private final JLabel playerScoreLabel = new JLabel(); //玩家的當前手牌總點數
     private final JLabel dealerScoreLabel = new JLabel(); //莊家的當前手牌總點數
+    private JLabel playerChipsLabel = new JLabel("Player Chips: 6"); //玩家的當前籌碼數
+    private JLabel dealerChipsLabel = new JLabel("Dealer Chips: 6"); //莊家的當前籌碼數
     
     private final JButton hitButton = new JButton("Hit"); //建立一個按鈕，標示為 "Hit"
     private final JButton standButton = new JButton("Stand"); //建立一個按鈕，標示為 "Stand"
@@ -33,13 +35,17 @@ public class BlackjackGUI extends JFrame {
         dealerContainer.setBorder(dealerBorder); //將標題邊框加入莊家區域
         dealerContainer.add(dealerScoreLabel, BorderLayout.NORTH); //把莊家的分數區域放在莊家區域的上(北)方
         dealerContainer.add(dealerPanel, BorderLayout.CENTER); //把莊家的卡片區域放在莊家區域的中間
+        dealerContainer.add(dealerChipsLabel, BorderLayout.SOUTH); //把莊家的籌碼區域放在莊家區域的下(南)方
         add(dealerContainer, BorderLayout.NORTH); //把莊家區域放在介面的上(北)方
         dealerPanel.setOpaque(false); //將區域設為透明，避免擋到背景
         dealerContainer.setOpaque(false);
         
         dealerScoreLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
         dealerScoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
-
+        
+        dealerChipsLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
+        dealerChipsLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        
         JPanel playerContainer = new JPanel(new BorderLayout()); //設置玩家區域
         javax.swing.border.TitledBorder playerBorder = BorderFactory.createTitledBorder("You"); //建立一個寫著You的標題邊框
         playerBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
@@ -47,12 +53,16 @@ public class BlackjackGUI extends JFrame {
         playerContainer.setBorder(playerBorder);  //將標題邊框加入玩家區域
         playerContainer.add(playerScoreLabel, BorderLayout.NORTH); //把玩家的分數區域放在介面的上(北)方
         playerContainer.add(playerPanel, BorderLayout.CENTER); //把玩家的卡片區域放在介面的中間
+        playerContainer.add(playerChipsLabel, BorderLayout.SOUTH); //把玩家的卡片區域放在介面的中間
         add(playerContainer, BorderLayout.CENTER); //把玩家區域放在介面的中間
         playerPanel.setOpaque(false); //將區域設為透明，避免擋到背景
         playerContainer.setOpaque(false);
         
         playerScoreLabel.setForeground(Color.WHITE); //把玩家的分數區域文字顏色變成白色
         playerScoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        
+        playerChipsLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
+        playerChipsLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
         
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
         JButton newGameButton = new JButton("New Game"); //建立一個按鈕，標示為 "New Game"
@@ -112,7 +122,10 @@ public class BlackjackGUI extends JFrame {
         
         //把當前玩家持有的卡牌圖加到玩家的卡片區域中(玩家默認開牌)
         addCardsToPanel(playerPanel, gameManager.getPlayerHand(), true);
-              
+        
+        playerChipsLabel.setText("Player Chips:" + String.valueOf(gameManager.getPlayerChips())); //更新玩家目前籌碼數
+        dealerChipsLabel.setText("Dealer Chips:" + String.valueOf(gameManager.getDealerChips())); //更新莊家目前籌碼數
+        
         playerScoreLabel.setText("Total: " + gameManager.getPlayerHandTotal()); //更新玩家目前手牌的總點數
         dealerScoreLabel.setText(
             gameManager.isDealerRevealed() //如果莊家還沒亮牌就只顯示 "?"，如果莊家亮牌了，才顯示實際點數
@@ -141,6 +154,13 @@ public class BlackjackGUI extends JFrame {
         boolean gameOngoing = !gameManager.isDealerRevealed(); //藉由莊家是否亮牌來判斷遊戲是否還在進行中
         hitButton.setEnabled(gameOngoing); //如果gameOngoing = true，則按鈕可以點擊，如果gameOngoing = false，則按鈕會變成灰色，不可點擊
         standButton.setEnabled(gameOngoing);
+        
+        if (gameManager.isGameOver()) {
+            JOptionPane.showMessageDialog(this, gameManager.getGameOverMessage(), "Game Over", JOptionPane.INFORMATION_MESSAGE);
+            // 可考慮禁用按鈕或自動重置遊戲
+            hitButton.setEnabled(false);
+            standButton.setEnabled(false);
+        }
         
         revalidate(); //更新位置與大小等佈局資訊（處理排版）
         repaint(); //強制重繪畫面（處理外觀）
