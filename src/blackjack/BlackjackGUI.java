@@ -150,11 +150,29 @@ public class BlackjackGUI extends JFrame {
         hitButton.setEnabled(gameOngoing); //如果gameOngoing = true，則按鈕可以點擊，如果gameOngoing = false，則按鈕會變成灰色，不可點擊
         standButton.setEnabled(gameOngoing);
         
-        if (gameManager.isGameOver()) {
-            JOptionPane.showMessageDialog(this, gameManager.getGameOverMessage(), "Game Over", JOptionPane.INFORMATION_MESSAGE);
-            // 可考慮禁用按鈕或自動重置遊戲
-            hitButton.setEnabled(false);
-            standButton.setEnabled(false);
+        if (gameManager.isGameOver()) { //如果任意一方籌碼歸零
+            Object[] options = {"Start New Game","Close Game"}; //定義按鈕文字
+            int result = JOptionPane.showOptionDialog( //顯示一個自訂按鈕的訊息對話框
+                this,
+                gameManager.getGameOverMessage(), //對話框中要顯示的訊息文字
+                "Game Over", //對話框標題
+                JOptionPane.DEFAULT_OPTION, //表示「選項類型」，表示對話框不會自動提供標準按鈕組
+                JOptionPane.INFORMATION_MESSAGE, //表示「訊息類型」，這裡指定訊息對話框的圖示是「資訊」圖示
+                null, //表示不使用自訂圖示，會用預設的訊息類型圖示
+                options, //自己定義的按鈕文字陣列
+                options[0] //預設被選取或聚焦的按鈕
+            );
+
+            if (result == 0) {
+                gameManager.resetChips(); //重置雙方籌碼
+                gameManager.startNewGame(); //重置遊戲狀態
+                updateUI(); //更新介面
+                hitButton.setEnabled(true);
+                standButton.setEnabled(true);
+            }
+            else {
+            	System.exit(0); //關閉遊戲
+            }
         }
         
         revalidate(); //更新位置與大小等佈局資訊（處理排版）

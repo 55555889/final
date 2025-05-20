@@ -69,6 +69,11 @@ public class GameManager {
         return "";
     }
     
+    public void resetChips() {
+        playerChips = 6;
+        dealerChips = 6;
+    }
+    
     //把GameManager裡的重要狀態資訊提供給GUI顯示或其他類別讀取
     public int getPlayerChips() { return playerChips; } //傳回玩家的籌碼數
     public int getDealerChips() { return dealerChips; } //傳回莊家的籌碼數
