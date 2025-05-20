@@ -26,22 +26,31 @@ public class BlackjackGUI extends JFrame {
         setLayout(new BorderLayout()); //將介面區分為五個區塊(上北,下南,左西,右東,中間)的版面配置方式
         
         JPanel dealerContainer = new JPanel(new BorderLayout()); //設置莊家區域
-        dealerContainer.setBorder(BorderFactory.createTitledBorder("Dealer")); //在莊家區域加上一個寫著Dealer的邊框 
+        javax.swing.border.TitledBorder dealerBorder = BorderFactory.createTitledBorder("Dealer"); //建立一個寫著Dealer的標題邊框
+        dealerBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
+        dealerBorder.setBorder(BorderFactory.createLineBorder(Color.WHITE));  //將標題邊框的邊框顏色變成白色
+        dealerContainer.setBorder(dealerBorder); //將標題邊框加入莊家區域
         dealerContainer.add(dealerScoreLabel, BorderLayout.NORTH); //把莊家的分數區域放在莊家區域的上(北)方
         dealerContainer.add(dealerPanel, BorderLayout.CENTER); //把莊家的卡片區域放在莊家區域的中間
         add(dealerContainer, BorderLayout.NORTH); //把莊家區域放在介面的上(北)方
         dealerPanel.setOpaque(false); //將區域設為透明，避免擋到背景
         dealerContainer.setOpaque(false);
+        
+        dealerScoreLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
 
         JPanel playerContainer = new JPanel(new BorderLayout()); //設置玩家區域
-        playerContainer.setBorder(BorderFactory.createTitledBorder("You")); //在玩家區域加上一個寫著You的邊框
+        javax.swing.border.TitledBorder playerBorder = BorderFactory.createTitledBorder("You"); //建立一個寫著You的標題邊框
+        playerBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
+        playerBorder.setBorder(BorderFactory.createLineBorder(Color.WHITE)); //將標題邊框的邊框顏色變成白色
+        playerContainer.setBorder(playerBorder);  //將標題邊框加入玩家區域
         playerContainer.add(playerScoreLabel, BorderLayout.NORTH); //把玩家的分數區域放在介面的上(北)方
         playerContainer.add(playerPanel, BorderLayout.CENTER); //把玩家的卡片區域放在介面的中間
         add(playerContainer, BorderLayout.CENTER); //把玩家區域放在介面的中間
         playerPanel.setOpaque(false); //將區域設為透明，避免擋到背景
         playerContainer.setOpaque(false);
-
-
+        
+        playerScoreLabel.setForeground(Color.WHITE); //把玩家的分數區域文字顏色變成白色
+        
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
         JButton newGameButton = new JButton("New Game"); //建立一個按鈕，標示為 "New Game"
 
@@ -49,6 +58,8 @@ public class BlackjackGUI extends JFrame {
         controlPanel.add(standButton);
         controlPanel.add(newGameButton);
         controlPanel.add(scoreLabel);
+        
+        scoreLabel.setForeground(Color.WHITE);  //把勝負次數文字顏色變成白色
         
         JPanel bottomPanel = new JPanel(new BorderLayout()); //設置底部區域
         bottomPanel.add(controlPanel, BorderLayout.CENTER); //把控制面板的區域放在底部區域的中間
@@ -100,13 +111,13 @@ public class BlackjackGUI extends JFrame {
 
         //根據訊息自動變色
         if (message.contains("You win")) {
-            statusLabel.setForeground(new Color(0, 128, 0)); //當訊息中有"You win"時，文字顏色變為綠色
+            statusLabel.setForeground(Color.GREEN); //當訊息中有"You win"時，文字顏色變為綠色
         } else if (message.contains("Dealer wins")) { //當訊息中有"Dealer wins"時，文字顏色變為紅色
             statusLabel.setForeground(Color.RED);
         } else if (message.contains("Push")) { //當訊息中有"Push"時，文字顏色變為紅色
             statusLabel.setForeground(Color.GRAY);
         } else {
-            statusLabel.setForeground(Color.BLACK); //預設顏色為黑色
+            statusLabel.setForeground(Color.WHITE); //預設顏色為白色
         }
         
         scoreLabel.setText("Wins: " + gameManager.getWins() + "  Losses: " + gameManager.getLosses()); //更新勝負次數
