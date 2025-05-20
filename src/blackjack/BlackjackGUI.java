@@ -22,6 +22,7 @@ public class BlackjackGUI extends JFrame {
         setTitle("Blackjack 21 點遊戲"); //介面標題
         setSize(800, 600); //介面大小
         setDefaultCloseOperation(EXIT_ON_CLOSE); //當介面右上角的「關閉（X）」被按下時關閉介面並結束應用程式
+        setLocationRelativeTo(null); //讓視窗在螢幕上置中顯示
         setContentPane(new BackgroundPanel("/background/desk_back.jpg")); //設置背景圖
         setLayout(new BorderLayout()); //將介面區分為五個區塊(上北,下南,左西,右東,中間)的版面配置方式
         
@@ -58,6 +59,10 @@ public class BlackjackGUI extends JFrame {
         controlPanel.add(standButton);
         controlPanel.add(newGameButton);
         controlPanel.add(scoreLabel);
+        
+        hitButton.setFocusPainted(false); //取消按鈕在被點選或取得鍵盤焦點時周圍的預設虛線框，讓按鈕看起來更乾淨
+        standButton.setFocusPainted(false);
+        newGameButton.setFocusPainted(false);
         
         scoreLabel.setForeground(Color.WHITE);  //把勝負次數文字顏色變成白色
         
