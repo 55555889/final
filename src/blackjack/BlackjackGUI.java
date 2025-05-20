@@ -97,14 +97,13 @@ public class BlackjackGUI extends JFrame {
         
      
         boolean showOnlyOneCard = !gameManager.isDealerRevealed();
-
+        
+        //把當前莊家持有的卡牌圖加到莊家的卡片區域中(莊家需確認是否已開牌)
         addCardsToPanel(dealerPanel, gameManager.getDealerHand(), !showOnlyOneCard);
-
-        addCardsToPanel(playerPanel, gameManager.getPlayerHand(), true);
         
-        //把當前莊家持有的卡牌圖加到莊家的卡片區域中(莊家需確認是否已開牌) 
         //把當前玩家持有的卡牌圖加到玩家的卡片區域中(玩家默認開牌)
-        
+        addCardsToPanel(playerPanel, gameManager.getPlayerHand(), true);
+              
         playerScoreLabel.setText("Total: " + gameManager.getPlayerHandTotal()); //更新玩家目前手牌的總點數
         dealerScoreLabel.setText(
             gameManager.isDealerRevealed() //如果莊家還沒亮牌就只顯示 "?"，如果莊家亮牌了，才顯示實際點數
@@ -139,17 +138,16 @@ public class BlackjackGUI extends JFrame {
     }
     
     class BackgroundPanel extends JPanel {
-        private final Image backgroundImage;
+        private final Image backgroundImage; //用於儲存要顯示的背景圖片
 
-        public BackgroundPanel(String imagePath) {
+        public BackgroundPanel(String imagePath) { //接收圖片路徑，並從資源目錄載入圖片，存入backgroundImage
             backgroundImage = new ImageIcon(getClass().getResource(imagePath)).getImage();
         }
 
         @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            // 繪製整個面板區域的背景圖（會自動拉伸）
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        protected void paintComponent(Graphics g) { //將背景圖片繪製到整個面板範圍，這樣無論面板大小如何變化，背景圖片都會自動縮放填滿。
+            super.paintComponent(g); //確保面板原本的背景等基本繪製先完成
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this); //把背景圖片繪製在面板整個區域 (從 0,0 到面板寬高)
         }
     }
     
@@ -160,11 +158,10 @@ public class BlackjackGUI extends JFrame {
         for (int i = 0; i < hand.size(); i++) { //用for迴圈遍歷整副手牌
             Card card = hand.get(i); //取出第i張手牌
             String path;
-            if (revealAll) {
+            if (revealAll) { //確認是否要亮出全部手牌(莊家有一張暗牌)
                 path = card.getImagePath();
             } else {
-                // 只讓第二張牌亮牌，其他牌背面
-                if (i == 1) {
+                if (i == 1) { // 莊家未開牌前只亮第二張牌，其他牌顯示背面
                     path = card.getImagePath();
                 } else {
                     path = "/cards/back.png";
