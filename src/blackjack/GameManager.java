@@ -9,8 +9,6 @@ public class GameManager {
     
     private int playerChips = 6; //紀錄玩家籌碼
     private int dealerChips = 6; //紀錄莊家籌碼
-    private int wins = 0; //紀錄玩家目前的勝場與敗場
-    private int losses = 0; 
     private boolean dealerRevealed = false;//紀錄莊家的牌是否已經翻開（亮牌）
     private String statusMessage = ""; //儲存當前遊戲的狀態提示
 
@@ -34,7 +32,6 @@ public class GameManager {
         if (player.getTotal() > 21) { //計算玩家手牌總點數，如果超過21點就是爆牌
             dealerRevealed = true;
             statusMessage = "You bust! Dealer wins.";
-            losses++;
             playerChips--;
             dealerChips++;
         }
@@ -50,14 +47,12 @@ public class GameManager {
         int dealerTotal = dealer.getTotal();
 
         if (dealerTotal > 21 || playerTotal > dealerTotal) { //若莊家爆牌，或玩家點數較高，則玩家獲勝
-        	wins++;
             statusMessage = "You win!";
             playerChips++;
             dealerChips--;
         } else if (dealerTotal == playerTotal) { //若雙方點數相同，則平手
             statusMessage = "Push (tie)";
         } else { //其他情況(莊家點數較高且沒爆牌)，則莊家勝利
-        	losses++;
             statusMessage = "Dealer wins.";
             playerChips--;
             dealerChips++;
@@ -83,6 +78,4 @@ public class GameManager {
     public List<Card> getDealerHand() { return dealer.getHand(); } //傳回莊家的手牌
     public boolean isDealerRevealed() { return dealerRevealed; } //傳回莊家的牌是否「亮牌」
     public String getStatusMessage() { return statusMessage; } //傳回目前的提示訊息
-    public int getWins() { return wins; } //傳回玩家累計勝場數
-    public int getLosses() { return losses; } //傳回玩家累計敗場數
 }
