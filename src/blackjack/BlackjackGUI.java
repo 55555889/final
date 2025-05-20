@@ -20,7 +20,7 @@ public class BlackjackGUI extends JFrame {
 
     public BlackjackGUI() { //建立並設定介面
         setTitle("Blackjack 21 點遊戲"); //介面標題
-        setSize(800, 600); //介面大小
+        setSize(1000, 600); //介面大小
         setDefaultCloseOperation(EXIT_ON_CLOSE); //當介面右上角的「關閉（X）」被按下時關閉介面並結束應用程式
         setLocationRelativeTo(null); //讓視窗在螢幕上置中顯示
         setContentPane(new BackgroundPanel("/background/desk_back.jpg")); //設置背景圖
@@ -179,7 +179,7 @@ public class BlackjackGUI extends JFrame {
                 continue; 
             }
             ImageIcon originalIcon = new ImageIcon(getClass().getResource(path)); //從資源路徑載入圖片，建立一個原始大小的ImageIcon(用於顯示的類別)
-            Image scaledImage = originalIcon.getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH); //把ImageIcon轉成Image(用於處理圖像的類別)，並縮放圖片到70x100像素，使用平滑演算法(SCALE_SMOOTH)來保持圖片品質 
+            Image scaledImage = originalIcon.getImage().getScaledInstance(102, 150, Image.SCALE_SMOOTH); //把ImageIcon轉成Image(用於處理圖像的類別)，並縮放圖片到70x100像素，使用平滑演算法(SCALE_SMOOTH)來保持圖片品質 
             ImageIcon scaledIcon = new ImageIcon(scaledImage); //把Image轉回ImageIcon
             JLabel cardLabel = new JLabel(scaledIcon); //將圖片包裝進一個JLabel
             panel.add(cardLabel); //把這張圖加到要加牌的目標卡片區域

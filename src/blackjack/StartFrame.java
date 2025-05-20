@@ -10,7 +10,7 @@ public class StartFrame extends JFrame {
 
     public StartFrame() {
         setTitle("21點遊戲 - 開始介面");
-        setSize(800, 600);
+        setSize(1000, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE); //當介面右上角的「關閉（X）」被按下時關閉介面並結束應用程式
         setLocationRelativeTo(null); //讓視窗在螢幕上置中顯示
         setContentPane(new BackgroundPanel("/background/start_back.png")); //設置背景圖
