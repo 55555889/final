@@ -24,14 +24,14 @@ public class GameManager {
         dealer.receiveCard(deck.drawCard());
         dealer.receiveCard(deck.drawCard());
 
-        statusMessage = "Your move!"; //修改當前遊戲的狀態提示
+        statusMessage = "玩家的操作時間"; //修改當前遊戲的狀態提示
     }
 
     public void playerHits() { //玩家要求抽一張牌
         player.receiveCard(deck.drawCard()); //玩家抽一張牌
         if (player.getTotal() > 21) { //計算玩家手牌總點數，如果超過21點就是爆牌
             dealerRevealed = true;
-            statusMessage = "You bust! Dealer wins.";
+            statusMessage = "玩家爆牌! 莊家獲勝";
             playerChips--;
             dealerChips++;
         }
@@ -46,14 +46,18 @@ public class GameManager {
         int playerTotal = player.getTotal(); //取得雙方手牌總點數
         int dealerTotal = dealer.getTotal();
 
-        if (dealerTotal > 21 || playerTotal > dealerTotal) { //若莊家爆牌，或玩家點數較高，則玩家獲勝
-            statusMessage = "You win!";
+        if (dealerTotal > 21) { //若莊家爆牌，則玩家獲勝
+            statusMessage = "莊家爆牌!玩家獲勝";
             playerChips++;
             dealerChips--;
-        } else if (dealerTotal == playerTotal) { //若雙方點數相同，則平手
-            statusMessage = "Push (tie)";
+        }else if (playerTotal > dealerTotal) { //若玩家點數較高，則玩家獲勝
+            statusMessage = "玩家獲勝";
+            playerChips++;
+            dealerChips--;
+        }else if (dealerTotal == playerTotal) { //若雙方點數相同，則平手
+            statusMessage = "平手";
         } else { //其他情況(莊家點數較高且沒爆牌)，則莊家勝利
-            statusMessage = "Dealer wins.";
+            statusMessage = "莊家獲勝";
             playerChips--;
             dealerChips++;
         }
@@ -64,8 +68,8 @@ public class GameManager {
     }
     
     public String getGameOverMessage() { //玩家和莊家的勝利訊息
-        if (playerChips == 0) return "Game Over! Dealer wins all chips!";
-        if (dealerChips == 0) return "Congratulations! You win all dealer chips!";
+        if (playerChips == 0) return "遊戲結束! 莊家贏得了所有的籌碼!";
+        if (dealerChips == 0) return "恭喜! 你贏得了所有的籌碼!";
         return "";
     }
     

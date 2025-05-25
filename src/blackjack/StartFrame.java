@@ -19,7 +19,7 @@ public class StartFrame extends JFrame {
         startButton.setFont(new Font("Arial", Font.BOLD, 24)); //設定按鈕文字字型
         startButton.setFocusPainted(false); //取消按鈕在被點選或取得鍵盤焦點時周圍的預設虛線框，讓按鈕看起來更乾淨
         
-        JButton ruleButton = new JButton("Rule"); //建立一個按鈕，標示為"Rule"
+        JButton ruleButton = new JButton("Rules"); //建立一個按鈕，標示為"Rules"
         ruleButton.setFont(new Font("Arial", Font.BOLD, 24)); //設定按鈕文字字型
         ruleButton.setFocusPainted(false); //取消按鈕在被點選或取得鍵盤焦點時周圍的預設虛線框，讓按鈕看起來更乾淨
         
@@ -29,7 +29,7 @@ public class StartFrame extends JFrame {
             this.dispose(); //關閉目前這個起始視窗
         });
         
-        ruleButton.addActionListener(e -> { //當"Rule"按鈕被點擊時觸發
+        ruleButton.addActionListener(e -> { //當"Rules"按鈕被點擊時觸發
             String gameRules = "遊戲規則：\n\n" +
                                "1. 21點是一種紙牌遊戲，目標是使手中的卡牌總點數盡量接近21點，但不能超過\n" +
                                "2. 玩家和莊家各有兩張起始牌，玩家可以選擇抽牌(Hit)或停牌(Stand)\n" +
@@ -38,7 +38,7 @@ public class StartFrame extends JFrame {
                                "5. 若任意一方手牌總點數超過21點，稱為「爆牌」，即立刻輸掉該局\n" +
                                "3. A可以視為1點或11點，J、Q、K算10點，其他牌為其數字\n" +
                                "4. 當莊家手牌總點數低於17點時需進行抽牌直到總點數達到或超過17點\n" +
-                               "6. 玩家和莊家各有6個籌碼(Chips)，當任意一方輸掉一局時，敗者籌碼-1，勝者籌碼+1\n"+
+                               "6. 玩家和莊家各有6個籌碼(Chips)，當任意一方輸掉一局時，敗者籌碼-1，勝者籌碼+1，平手則籌碼不變\n"+
                                "7. 當任意一方籌碼歸零，對方獲勝\n\n"
                                
                                ;

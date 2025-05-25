@@ -10,14 +10,14 @@ public class BlackjackGUI extends JFrame {
 
     private final JPanel playerPanel = new JPanel(); //玩家的卡片區域
     private final JPanel dealerPanel = new JPanel(); //莊家的卡片區域
-    private final JLabel statusLabel = new JLabel("Welcome to Blackjack!"); //當前遊戲狀態的提示訊息區域
+    private final JLabel statusLabel = new JLabel("玩家的操作時間"); //當前遊戲狀態的提示訊息區域
     private final JLabel playerScoreLabel = new JLabel(); //玩家的當前手牌總點數
     private final JLabel dealerScoreLabel = new JLabel(); //莊家的當前手牌總點數
-    private JLabel playerChipsLabel = new JLabel("Player Chips: 6"); //玩家的當前籌碼數
-    private JLabel dealerChipsLabel = new JLabel("Dealer Chips: 6"); //莊家的當前籌碼數
+    private JLabel playerChipsLabel = new JLabel("玩家籌碼: 6"); //玩家的當前籌碼數
+    private JLabel dealerChipsLabel = new JLabel("莊家籌碼: 6"); //莊家的當前籌碼數
     
-    private final JButton hitButton = new JButton("Hit"); //建立一個按鈕，標示為 "Hit"
-    private final JButton standButton = new JButton("Stand"); //建立一個按鈕，標示為 "Stand"
+    private final JButton hitButton = new JButton("抽牌(Hit)"); //建立一個按鈕，標示為 "Hit"
+    private final JButton standButton = new JButton("停牌(Stand)"); //建立一個按鈕，標示為 "Stand"
 
     public BlackjackGUI() { //建立並設定介面
         setTitle("Blackjack 21 點遊戲"); //介面標題
@@ -28,7 +28,7 @@ public class BlackjackGUI extends JFrame {
         setLayout(new BorderLayout()); //將介面區分為五個區塊(上北,下南,左西,右東,中間)的版面配置方式
         
         JPanel dealerContainer = new JPanel(new BorderLayout()); //設置莊家區域
-        javax.swing.border.TitledBorder dealerBorder = BorderFactory.createTitledBorder("Dealer"); //建立一個寫著Dealer的標題邊框
+        javax.swing.border.TitledBorder dealerBorder = BorderFactory.createTitledBorder("莊家"); //建立一個寫著莊家的標題邊框
         dealerBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
         dealerBorder.setBorder(BorderFactory.createLineBorder(Color.WHITE));  //將標題邊框的邊框顏色變成白色
         dealerContainer.setBorder(dealerBorder); //將標題邊框加入莊家區域
@@ -40,13 +40,13 @@ public class BlackjackGUI extends JFrame {
         dealerContainer.setOpaque(false);
         
         dealerScoreLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
-        dealerScoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        dealerScoreLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26)); //設定字型為微軟正黑體,字體樣式為粗體,字體大小為26pt
         
         dealerChipsLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
-        dealerChipsLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        dealerChipsLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26)); //設定字型為微軟正黑體,字體樣式為粗體,字體大小為26pt
         
         JPanel playerContainer = new JPanel(new BorderLayout()); //設置玩家區域
-        javax.swing.border.TitledBorder playerBorder = BorderFactory.createTitledBorder("You"); //建立一個寫著You的標題邊框
+        javax.swing.border.TitledBorder playerBorder = BorderFactory.createTitledBorder("玩家"); //建立一個寫著玩家的標題邊框
         playerBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
         playerBorder.setBorder(BorderFactory.createLineBorder(Color.WHITE)); //將標題邊框的邊框顏色變成白色
         playerContainer.setBorder(playerBorder);  //將標題邊框加入玩家區域
@@ -58,13 +58,13 @@ public class BlackjackGUI extends JFrame {
         playerContainer.setOpaque(false);
         
         playerScoreLabel.setForeground(Color.WHITE); //把玩家的分數區域文字顏色變成白色
-        playerScoreLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        playerScoreLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26)); //設定字型為微軟正黑體,字體樣式為粗體,字體大小為26pt
         
         playerChipsLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
-        playerChipsLabel.setFont(new Font("Arial", Font.BOLD, 26)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        playerChipsLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26)); //設定字型為微軟正黑體,字體樣式為粗體,字體大小為26pt
         
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
-        JButton newGameButton = new JButton("New Game"); //建立一個按鈕，標示為 "New Game"
+        JButton newGameButton = new JButton("開啟新的一局(New Game)"); //建立一個按鈕，標示為 "New Game"
 
         controlPanel.add(hitButton); //把各個按鈕和勝負次數放進控制面板的區域
         controlPanel.add(standButton);
@@ -83,7 +83,7 @@ public class BlackjackGUI extends JFrame {
         bottomPanel.setOpaque(false);
         
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER); //讓文字在水平方向置中
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 48)); //設定字型為Arial,字體樣式為粗體,字體大小為26pt
+        statusLabel.setFont(new Font("微軟正黑體", Font.BOLD, 48)); //設定字型為微軟正黑體,字體樣式為粗體,字體大小為26pt
         
         
         hitButton.addActionListener(e -> { //當"Hit"按鈕被按下時
@@ -119,14 +119,14 @@ public class BlackjackGUI extends JFrame {
         //把當前玩家持有的卡牌圖加到玩家的卡片區域中(玩家默認開牌)
         addCardsToPanel(playerPanel, gameManager.getPlayerHand(), true);
         
-        playerChipsLabel.setText("Player Chips:" + String.valueOf(gameManager.getPlayerChips())); //更新玩家目前籌碼數
-        dealerChipsLabel.setText("Dealer Chips:" + String.valueOf(gameManager.getDealerChips())); //更新莊家目前籌碼數
+        playerChipsLabel.setText("玩家籌碼:" + String.valueOf(gameManager.getPlayerChips())); //更新玩家目前籌碼數
+        dealerChipsLabel.setText("莊家籌碼:" + String.valueOf(gameManager.getDealerChips())); //更新莊家目前籌碼數
         
-        playerScoreLabel.setText("Total: " + gameManager.getPlayerHandTotal()); //更新玩家目前手牌的總點數
+        playerScoreLabel.setText("手牌總點數: " + gameManager.getPlayerHandTotal()); //更新玩家目前手牌的總點數
         dealerScoreLabel.setText(
             gameManager.isDealerRevealed() //如果莊家還沒亮牌就只顯示 "?"，如果莊家亮牌了，才顯示實際點數
-                ? "Total: " + gameManager.getDealerHandTotal()
-                : "Total: ?"
+                ? "手牌總點數: " + gameManager.getDealerHandTotal()
+                : "手牌總點數: ?"
         );
         
         //更新當前遊戲狀態的提示訊息
@@ -134,11 +134,11 @@ public class BlackjackGUI extends JFrame {
         statusLabel.setText(message);
 
         //根據訊息自動變色
-        if (message.contains("You win")) {
-            statusLabel.setForeground(Color.GREEN); //當訊息中有"You win"時，文字顏色變為綠色
-        } else if (message.contains("Dealer wins")) { //當訊息中有"Dealer wins"時，文字顏色變為紅色
+        if (message.contains("玩家獲勝")) {
+            statusLabel.setForeground(Color.GREEN); //當訊息中有"玩家獲勝"時，文字顏色變為綠色
+        } else if (message.contains("莊家獲勝")) { //當訊息中有"莊家獲勝"時，文字顏色變為紅色
             statusLabel.setForeground(Color.RED);
-        } else if (message.contains("Push")) { //當訊息中有"Push"時，文字顏色變為紅色
+        } else if (message.contains("平手")) { //當訊息中有"平手"時，文字顏色變為紅色
             statusLabel.setForeground(Color.GRAY);
         } else {
             statusLabel.setForeground(Color.WHITE); //預設顏色為白色
@@ -151,11 +151,11 @@ public class BlackjackGUI extends JFrame {
         standButton.setEnabled(gameOngoing);
         
         if (gameManager.isGameOver()) { //如果任意一方籌碼歸零
-            Object[] options = {"Start New Game","Close Game"}; //定義按鈕文字
+            Object[] options = {"開始新的遊戲(Start New Game)","關閉遊戲(Close Game)"}; //定義按鈕文字
             int result = JOptionPane.showOptionDialog( //顯示一個自訂按鈕的訊息對話框
                 this, //表示對話框會顯示在這個視窗的中央。
                 gameManager.getGameOverMessage(), //對話框中要顯示的訊息文字
-                "Game Over", //對話框標題
+                "遊戲結束", //對話框標題
                 JOptionPane.DEFAULT_OPTION, //表示「選項類型」，表示對話框不會自動提供標準按鈕組
                 JOptionPane.INFORMATION_MESSAGE, //表示「訊息類型」，這裡指定訊息對話框的圖示是「資訊」圖示
                 null, //表示不使用自訂圖示，會用預設的訊息類型圖示
