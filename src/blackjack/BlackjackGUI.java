@@ -21,7 +21,7 @@ public class BlackjackGUI extends JFrame {
 
     public BlackjackGUI() { //建立並設定介面
         setTitle("Blackjack 21 點遊戲"); //介面標題
-        setSize(1000, 600); //介面大小
+        setSize(1200, 720); //介面大小
         setDefaultCloseOperation(EXIT_ON_CLOSE); //當介面右上角的「關閉（X）」被按下時關閉介面並結束應用程式
         setLocationRelativeTo(null); //讓視窗在螢幕上置中顯示
         setContentPane(new BackgroundPanel("/background/desk_back.jpg")); //設置背景圖
@@ -153,7 +153,7 @@ public class BlackjackGUI extends JFrame {
         if (gameManager.isGameOver()) { //如果任意一方籌碼歸零
             Object[] options = {"Start New Game","Close Game"}; //定義按鈕文字
             int result = JOptionPane.showOptionDialog( //顯示一個自訂按鈕的訊息對話框
-                this,
+                this, //表示對話框會顯示在這個視窗的中央。
                 gameManager.getGameOverMessage(), //對話框中要顯示的訊息文字
                 "Game Over", //對話框標題
                 JOptionPane.DEFAULT_OPTION, //表示「選項類型」，表示對話框不會自動提供標準按鈕組
