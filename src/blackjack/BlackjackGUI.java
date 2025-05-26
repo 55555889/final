@@ -160,7 +160,6 @@ public class BlackjackGUI extends JFrame {
         
         add(betPanel, BorderLayout.EAST);//將押注區域放在玩家區域的右邊(沒辦法，沒地方放了)
         
-        
         revalidate();//更新位置與大小等佈局資訊（處理排版）
         repaint();//強制重繪畫面（處理外觀）
     }
@@ -223,7 +222,7 @@ public class BlackjackGUI extends JFrame {
         
         //根據遊戲狀態啟用或停用按鈕
         boolean gameOngoing = !gameManager.isDealerRevealed(); //藉由莊家是否亮牌來判斷遊戲是否還在進行中
-        if(gameOngoing=false) {
+        if(gameOngoing == false) {
         	hitButton.setEnabled(gameOngoing); //如果gameOngoing = true，則按鈕可以點擊，如果gameOngoing = false，則按鈕會變成灰色，不可點擊
             standButton.setEnabled(gameOngoing);
         }

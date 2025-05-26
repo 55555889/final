@@ -25,7 +25,7 @@ public class GameManager {
         dealer.receiveCard(deck.drawCard());
         dealer.receiveCard(deck.drawCard());
 
-        statusMessage = "玩家的操作時間"; //修改當前遊戲的狀態提示
+        statusMessage = "玩家的押注時間"; //修改當前遊戲的狀態提示
         
      
         this.currentBet = 0;//每次開始新的一局時重設押注籌碼數
@@ -34,6 +34,7 @@ public class GameManager {
     //接收玩家選擇的押注籌碼數(1~3)
     public void setCurrentBet(int betAmount) {
     	currentBet = betAmount;
+    	statusMessage = "玩家的操作時間"; //修改當前遊戲的狀態提示
     }
     
     public void playerHits() { //玩家要求抽一張牌
