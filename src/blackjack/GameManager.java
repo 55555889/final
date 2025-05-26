@@ -9,6 +9,7 @@ public class GameManager {
     
     private int playerChips = 6; //紀錄玩家籌碼
     private int dealerChips = 6; //紀錄莊家籌碼
+    private int currentBet = 0; //紀錄當局押注籌碼數量
     private boolean dealerRevealed = false;//紀錄莊家的牌是否已經翻開（亮牌）
     private String statusMessage = ""; //儲存當前遊戲的狀態提示
 
@@ -26,14 +27,23 @@ public class GameManager {
 
         statusMessage = "玩家的操作時間"; //修改當前遊戲的狀態提示
     }
-
+    
+    //玩家選擇押注籌碼，範圍 1-3
+    public void setCurrentBet(int betAmount) {
+        if (betAmount >= 1 && betAmount <= 3) {
+            currentBet = betAmount;
+        } else {
+            throw new IllegalArgumentException("Bet must be between 1 and 3");
+        }
+    }
+    
     public void playerHits() { //玩家要求抽一張牌
         player.receiveCard(deck.drawCard()); //玩家抽一張牌
         if (player.getTotal() > 21) { //計算玩家手牌總點數，如果超過21點就是爆牌
             dealerRevealed = true;
             statusMessage = "玩家爆牌! 莊家獲勝";
-            playerChips--;
-            dealerChips++;
+            playerChips -= currentBet;
+            dealerChips += currentBet;
         }
     }
 
@@ -48,18 +58,18 @@ public class GameManager {
 
         if (dealerTotal > 21) { //若莊家爆牌，則玩家獲勝
             statusMessage = "莊家爆牌!玩家獲勝";
-            playerChips++;
-            dealerChips--;
+            playerChips += currentBet;
+            dealerChips -= currentBet;
         }else if (playerTotal > dealerTotal) { //若玩家點數較高，則玩家獲勝
             statusMessage = "玩家獲勝";
-            playerChips++;
-            dealerChips--;
+            playerChips += currentBet;
+            dealerChips -= currentBet;
         }else if (dealerTotal == playerTotal) { //若雙方點數相同，則平手
             statusMessage = "平手";
         } else { //其他情況(莊家點數較高且沒爆牌)，則莊家勝利
             statusMessage = "莊家獲勝";
-            playerChips--;
-            dealerChips++;
+            playerChips -= currentBet;
+            dealerChips += currentBet;
         }
     }
     
@@ -81,6 +91,7 @@ public class GameManager {
     //把GameManager裡的重要狀態資訊提供給GUI顯示或其他類別讀取
     public int getPlayerChips() { return playerChips; } //傳回玩家的籌碼數
     public int getDealerChips() { return dealerChips; } //傳回莊家的籌碼數
+    public int getCurrentBet() { return currentBet; } //傳回當局押注籌碼數量
     public int getPlayerHandTotal() {return player.getTotal();} //傳回玩家的手牌總點數
     public int getDealerHandTotal() {return dealer.getTotal();} //傳回莊家的手牌總點數
     public List<Card> getPlayerHand() { return player.getHand(); } //傳回玩家的手牌
