@@ -15,10 +15,10 @@ public class BlackjackGUI extends JFrame {
     private final JLabel dealerScoreLabel = new JLabel(); //莊家的當前手牌總點數
     private JLabel playerChipsLabel = new JLabel(); //玩家的當前籌碼數
     private JLabel dealerChipsLabel = new JLabel(); //莊家的當前籌碼數
-    private JLabel betLabel = new JLabel();
-    private final JButton betButton1 = new JButton("押注 1 顆籌碼");
-    private final JButton betButton2 = new JButton("押注 2 顆籌碼");
-    private final JButton betButton3 = new JButton("押注 3 顆籌碼");
+    private JLabel betLabel = new JLabel(); //當局遊戲的押注數
+    private final JButton betButton1 = new JButton("押注 1 顆籌碼"); //建立一個按鈕，標示為 "押注 1 顆籌碼"
+    private final JButton betButton2 = new JButton("押注 2 顆籌碼"); //建立一個按鈕，標示為 "押注 2 顆籌碼"
+    private final JButton betButton3 = new JButton("押注 3 顆籌碼"); //建立一個按鈕，標示為 "押注 3 顆籌碼"
     
     private final JButton hitButton = new JButton("抽牌(Hit)"); //建立一個按鈕，標示為 "Hit"
     private final JButton standButton = new JButton("停牌(Stand)"); //建立一個按鈕，標示為 "Stand"
@@ -70,16 +70,16 @@ public class BlackjackGUI extends JFrame {
         JPanel controlPanel = new JPanel(); //建立控制面板的區域(放按鈕和勝負次數)
         JButton newGameButton = new JButton("開啟新的一局(New Game)"); //建立一個按鈕，標示為 "New Game"
 
-        controlPanel.add(hitButton); //把各個按鈕和勝負次數放進控制面板的區域
+        controlPanel.add(hitButton); //把各個按鈕、勝負次數和當局押注籌碼數放進控制面板的區域
         controlPanel.add(standButton);
         controlPanel.add(newGameButton);
         controlPanel.add(betLabel);
         
-        betLabel.setForeground(Color.WHITE); //把莊家的分數區域文字顏色變成白色
+        betLabel.setForeground(Color.WHITE); //把當局押注籌碼數文字顏色變成白色
         betLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26)); //設定字型為微軟正黑體,字體樣式為粗體,字體大小為26pt
         
-        // 顯示押注選擇按鈕
-        showBetButtons();
+        
+        showBetButtons(); //顯示當局押注籌碼數的選擇按鈕
         
         hitButton.setFocusPainted(false); //取消按鈕在被點選或取得鍵盤焦點時周圍的預設虛線框，讓按鈕看起來更乾淨
         standButton.setFocusPainted(false);
@@ -110,7 +110,7 @@ public class BlackjackGUI extends JFrame {
         newGameButton.addActionListener(e -> { //當"New Game"按鈕被按下時
             gameManager.startNewGame(); //執行GameManager.java裡的startNewGame()
             updateUI(); //刷新介面
-            showBetButtons();
+            showBetButtons(); //顯示當局押注籌碼數的選擇按鈕
         });
         
         
@@ -120,9 +120,8 @@ public class BlackjackGUI extends JFrame {
     }
     
     private void showBetButtons() {
-    	// 使用 BoxLayout 進行垂直排列
-        JPanel betPanel = new JPanel();
-        betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS)); // 垂直排列
+        JPanel betPanel = new JPanel(); //設置押注區域
+        betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS)); //將押注區域的版面配置設置為BoxLayout(以垂直或水平方向排列)，設定排列方式為垂直排列
         
         javax.swing.border.TitledBorder betBorder = BorderFactory.createTitledBorder("押注"); //建立一個寫著押注的標題邊框
         betBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
@@ -131,13 +130,13 @@ public class BlackjackGUI extends JFrame {
         
         betPanel.setOpaque(false); //使面板透明，避免遮擋背景
         
-        // 根據玩家擁有的籌碼數，顯示相應的押注按鈕
-        int playerChips = gameManager.getPlayerChips();
+        //根據玩家擁有的籌碼數，顯示相應的押注按鈕(避免玩家擁有的籌碼數變負值)
+        int playerChips = gameManager.getPlayerChips(); //獲取玩家擁有的籌碼數
 
-        // 根據玩家擁有的籌碼顯示按鈕
+        //根據玩家擁有的籌碼顯示按鈕
         if (playerChips >= 1) {
-            betButton1.setVisible(true);
-            betButton1.setEnabled(true);
+            betButton1.setVisible(true); //設置按鈕是否可見
+            betButton1.setEnabled(true); //設置按鈕是否可交互的
         }
         if (playerChips >= 2) {
             betButton2.setVisible(true);
@@ -147,36 +146,28 @@ public class BlackjackGUI extends JFrame {
             betButton3.setVisible(true);
             betButton3.setEnabled(true);
         }
-        // 加入押注按鈕並設置事件處理
-        betButton1.addActionListener(e -> setBetAmount(1));
-        betButton2.addActionListener(e -> setBetAmount(2));
-        betButton3.addActionListener(e -> setBetAmount(3));
+        
+        betButton1.addActionListener(e -> setBetAmount(1)); //當按鈕被點擊時，會把玩家的押注籌碼數設置為1顆籌碼
+        betButton2.addActionListener(e -> setBetAmount(2)); //當按鈕被點擊時，會把玩家的押注籌碼數設置為2顆籌碼
+        betButton3.addActionListener(e -> setBetAmount(3)); //當按鈕被點擊時，會把玩家的押注籌碼數設置為3顆籌碼
 
-        betPanel.add(betButton1);
+        betPanel.add(betButton1);//將按鈕加入押注區域
         betPanel.add(betButton2);
         betPanel.add(betButton3);
         
-        // 在介面的底部顯示押注按鈕
-        add(betPanel, BorderLayout.EAST);
+        add(betPanel, BorderLayout.EAST);//將押注區域放在玩家區域的右邊(沒辦法，沒地方放了)
         
-     // 確保視圖更新
-        revalidate();
-        repaint();
+        revalidate();//更新位置與大小等佈局資訊（處理排版）
+        repaint();//強制重繪畫面（處理外觀）
     }
 
     private void setBetAmount(int betAmount) {
-        // 設定押注金額
-        gameManager.setCurrentBet(betAmount);
-
-        // 隱藏押注按鈕
-        hideBetButtons();
-
-        // 更新遊戲狀態
-        updateUI();
+        gameManager.setCurrentBet(betAmount); //將玩家選擇的押注籌碼數傳回到gameManager
+        hideBetButtons(); //隱藏所有押注區域按鈕
+        updateUI();//更新遊戲狀態
     }
 
-    private void hideBetButtons() {
-        // 隱藏押注按鈕（選擇押注後不再顯示）
+    private void hideBetButtons() { //隱藏所有押注區域按鈕
         betButton1.setVisible(false);
         betButton2.setVisible(false);
         betButton3.setVisible(false);
@@ -198,7 +189,7 @@ public class BlackjackGUI extends JFrame {
         
         playerChipsLabel.setText("玩家籌碼:" + gameManager.getPlayerChips()); //更新玩家目前籌碼數
         dealerChipsLabel.setText("莊家籌碼:" + gameManager.getDealerChips()); //更新莊家目前籌碼數
-        betLabel.setText("當前賭注: " + gameManager.getCurrentBet());  // 顯示當前押注
+        betLabel.setText("當局賭注: " + gameManager.getCurrentBet());  //顯示當局押注籌碼數
         
         playerScoreLabel.setText("手牌總點數: " + gameManager.getPlayerHandTotal()); //更新玩家目前手牌的總點數
         dealerScoreLabel.setText(

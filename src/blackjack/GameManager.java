@@ -27,23 +27,19 @@ public class GameManager {
 
         statusMessage = "玩家的操作時間"; //修改當前遊戲的狀態提示
         
-     // 每次開始新的一局時重設押注
-        this.currentBet = 0;
+     
+        this.currentBet = 0;//每次開始新的一局時重設押注籌碼數
     }
     
-    //玩家選擇押注籌碼，範圍 1-3
+    //接收玩家選擇的押注籌碼數(1~3)
     public void setCurrentBet(int betAmount) {
-        if (betAmount >= 1 && betAmount <= 3) {
-            currentBet = betAmount;
-        } else {
-            throw new IllegalArgumentException("Bet must be between 1 and 3");
-        }
+    	currentBet = betAmount;
     }
     
     public void playerHits() { //玩家要求抽一張牌
         player.receiveCard(deck.drawCard()); //玩家抽一張牌
         if (player.getTotal() > 21) { //計算玩家手牌總點數，如果超過21點就是爆牌
-            dealerRevealed = true;
+            dealerRevealed = true; //莊家的牌要翻開
             statusMessage = "玩家爆牌! 莊家獲勝";
             playerChips -= currentBet;
             dealerChips += currentBet;
