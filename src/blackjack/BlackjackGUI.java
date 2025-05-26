@@ -81,6 +81,9 @@ public class BlackjackGUI extends JFrame {
         
         showBetButtons(); //顯示當局押注籌碼數的選擇按鈕
         
+        hitButton.setEnabled(false);//未選擇當局押注籌碼數時禁用其他按鈕
+        standButton.setEnabled(false);
+        
         hitButton.setFocusPainted(false); //取消按鈕在被點選或取得鍵盤焦點時周圍的預設虛線框，讓按鈕看起來更乾淨
         standButton.setFocusPainted(false);
         newGameButton.setFocusPainted(false);
@@ -157,6 +160,7 @@ public class BlackjackGUI extends JFrame {
         
         add(betPanel, BorderLayout.EAST);//將押注區域放在玩家區域的右邊(沒辦法，沒地方放了)
         
+        
         revalidate();//更新位置與大小等佈局資訊（處理排版）
         repaint();//強制重繪畫面（處理外觀）
     }
@@ -167,10 +171,13 @@ public class BlackjackGUI extends JFrame {
         updateUI();//更新遊戲狀態
     }
 
-    private void hideBetButtons() { //隱藏所有押注區域按鈕
+    private void hideBetButtons() { //隱藏所有押注區域按鈕並啟用其他按鈕
         betButton1.setVisible(false);
         betButton2.setVisible(false);
         betButton3.setVisible(false);
+        
+        hitButton.setEnabled(true);
+        standButton.setEnabled(true);
     }
     
     
@@ -216,9 +223,10 @@ public class BlackjackGUI extends JFrame {
         
         //根據遊戲狀態啟用或停用按鈕
         boolean gameOngoing = !gameManager.isDealerRevealed(); //藉由莊家是否亮牌來判斷遊戲是否還在進行中
-        hitButton.setEnabled(gameOngoing); //如果gameOngoing = true，則按鈕可以點擊，如果gameOngoing = false，則按鈕會變成灰色，不可點擊
-        standButton.setEnabled(gameOngoing);
-        
+        if(gameOngoing=false) {
+        	hitButton.setEnabled(gameOngoing); //如果gameOngoing = true，則按鈕可以點擊，如果gameOngoing = false，則按鈕會變成灰色，不可點擊
+            standButton.setEnabled(gameOngoing);
+        }
         if (gameManager.isGameOver()) { //如果任意一方籌碼歸零
             Object[] options = {"開始新的遊戲(Start New Game)","關閉遊戲(Close Game)"}; //定義按鈕文字
             int result = JOptionPane.showOptionDialog( //顯示一個自訂按鈕的訊息對話框
