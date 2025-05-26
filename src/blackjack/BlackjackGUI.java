@@ -120,8 +120,16 @@ public class BlackjackGUI extends JFrame {
     }
     
     private void showBetButtons() {
-        JPanel betPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 中央對齊的按鈕面板
-        betPanel.setOpaque(false); // 使面板透明，避免遮擋背景
+    	// 使用 BoxLayout 進行垂直排列
+        JPanel betPanel = new JPanel();
+        betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS)); // 垂直排列
+        
+        javax.swing.border.TitledBorder betBorder = BorderFactory.createTitledBorder("押注"); //建立一個寫著押注的標題邊框
+        betBorder.setTitleColor(Color.WHITE); //將標題邊框的標題顏色變成白色
+        betBorder.setBorder(BorderFactory.createLineBorder(Color.WHITE)); //將標題邊框的邊框顏色變成白色
+        betPanel.setBorder(betBorder);  //將標題邊框加入玩家區域
+        
+        betPanel.setOpaque(false); //使面板透明，避免遮擋背景
         
         // 根據玩家擁有的籌碼數，顯示相應的押注按鈕
         int playerChips = gameManager.getPlayerChips();
