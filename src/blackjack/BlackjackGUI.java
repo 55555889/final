@@ -122,7 +122,23 @@ public class BlackjackGUI extends JFrame {
     private void showBetButtons() {
         JPanel betPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 中央對齊的按鈕面板
         betPanel.setOpaque(false); // 使面板透明，避免遮擋背景
+        
+        // 根據玩家擁有的籌碼數，顯示相應的押注按鈕
+        int playerChips = gameManager.getPlayerChips();
 
+        // 根據玩家擁有的籌碼顯示按鈕
+        if (playerChips >= 1) {
+            betButton1.setVisible(true);
+            betButton1.setEnabled(true);
+        }
+        if (playerChips >= 2) {
+            betButton2.setVisible(true);
+            betButton2.setEnabled(true);
+        }
+        if (playerChips >= 3) {
+            betButton3.setVisible(true);
+            betButton3.setEnabled(true);
+        }
         // 加入押注按鈕並設置事件處理
         betButton1.addActionListener(e -> setBetAmount(1));
         betButton2.addActionListener(e -> setBetAmount(2));
@@ -131,11 +147,6 @@ public class BlackjackGUI extends JFrame {
         betPanel.add(betButton1);
         betPanel.add(betButton2);
         betPanel.add(betButton3);
-        
-        // 重新設置按鈕可見性，確保按鈕會顯示
-        betButton1.setVisible(true);
-        betButton2.setVisible(true);
-        betButton3.setVisible(true);
         
         // 在介面的底部顯示押注按鈕
         add(betPanel, BorderLayout.EAST);
@@ -223,12 +234,12 @@ public class BlackjackGUI extends JFrame {
             );
 
             if (result == 0) {
-            	gameManager.setCurrentBet(0); // 重設押注
                 gameManager.resetChips(); //重置雙方籌碼
                 gameManager.startNewGame(); //重置遊戲狀態
                 updateUI(); //更新介面
                 hitButton.setEnabled(true);
                 standButton.setEnabled(true);
+                showBetButtons(); //顯示押注選擇按鈕
             }
             else {
             	System.exit(0); //關閉遊戲

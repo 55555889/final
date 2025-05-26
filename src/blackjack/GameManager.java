@@ -26,6 +26,9 @@ public class GameManager {
         dealer.receiveCard(deck.drawCard());
 
         statusMessage = "玩家的操作時間"; //修改當前遊戲的狀態提示
+        
+     // 每次開始新的一局時重設押注
+        this.currentBet = 0;
     }
     
     //玩家選擇押注籌碼，範圍 1-3
